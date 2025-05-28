@@ -1,0 +1,71 @@
+# ============================
+# Git Ignore para .NET
+# ============================
+
+## Build results
+bin/
+obj/
+out/
+
+## User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Visual Studio Code
+.vscode/
+
+## Rider
+.idea/
+
+## Logs
+*.log
+
+## Configuration
+appsettings.json
+appsettings.*.json
+
+# Secrets
+secrets.json
+
+## Package directories
+packages/
+*.nupkg
+
+## Others
+*.dbmdl
+*.bak
+*.backup
+*.mdf
+*.ldf
+
+# ============================
+# Git Ignore para React
+# ============================
+
+# dependencies
+/node_modules
+
+# production
+/build
+
+# misc
+.DS_Store
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Editor directories and files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
