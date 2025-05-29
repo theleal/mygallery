@@ -15,8 +15,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ContextProject>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddTransient<IObraRepository, ObraRepository>();
 
-builder.Services.Configure<BackBlazeConfig>(builder.Configuration.GetSection("BackBlaze"));
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowLocalhost5500",
