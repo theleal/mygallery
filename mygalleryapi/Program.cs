@@ -1,7 +1,8 @@
 using APIGallery.Context;
 using APIGallery.Interfaces;
-using APIGallery.Models;
+using APIGallery.Models.BackBlaze;
 using APIGallery.Repositorios;
+using APIGallery.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,9 @@ builder.Services.AddSwaggerGen();
 // DB e configurações
 builder.Services.AddDbContext<ContextProject>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddTransient<IObraRepository, ObraRepository>();
+builder.Services.AddTransient<IObraService, ObraService>();
+builder.Services.Configure<BackBlazeSettings>(builder.Configuration.GetSection("BackBlaze"));
+
 
 builder.Services.AddCors(options =>
 {

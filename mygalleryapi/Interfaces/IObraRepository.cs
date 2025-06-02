@@ -9,5 +9,6 @@ namespace APIGallery.Interfaces
         Task<Obra> Criar(Obra model);
         Task<Obra> Atualizar(Obra model);
         Task<bool> Delete(int id);
+
     }
 }

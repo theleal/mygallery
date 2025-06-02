@@ -33,16 +33,15 @@ namespace APIGallery.Repositorios
         public async Task<bool> Delete(int id)
         {
             var model = await _context.Obras.FindAsync(id);
+
             if (model == null)
             {
                 return false;
             }
-            else
-            {
-                _context.Remove(model);
-                await _context.SaveChangesAsync();
-                return true;
-            }
+
+            _context.Remove(model);
+            await _context.SaveChangesAsync();
+            return true;
         }
 
         public async Task<Obra> ObterPeloId(int id)

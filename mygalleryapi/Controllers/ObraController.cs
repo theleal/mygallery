@@ -1,6 +1,7 @@
 using APIGallery.Context;
 using APIGallery.Interfaces;
 using APIGallery.Models;
+using APIGallery.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APIGallery.Controllers
@@ -10,9 +11,11 @@ namespace APIGallery.Controllers
     public class ObraController : ControllerBase
     {
         private readonly IObraRepository _obraRepository;
-        public ObraController(IObraRepository obraRepository)
+        private readonly IObraService _obraService;
+        public ObraController(IObraRepository obraRepository, IObraService obraService)
         {
             _obraRepository = obraRepository;
+            _obraService = obraService;
         }
 
 
@@ -44,7 +47,7 @@ namespace APIGallery.Controllers
         }
 
         [HttpPost("Criar")]
-        public async Task<IActionResult> Criar([FromBody] Obra model)
+        public async Task<IActionResult> Criar([FromBody, Bind("Titulo,Descricao,URL,Tags")] Obra model)
         {
             try
             {
@@ -58,7 +61,7 @@ namespace APIGallery.Controllers
             }
         }
 
-        [HttpPost("Atualizar")]
+        [HttpPut("Atualizar")]
         public async Task<IActionResult> Atualizar([FromBody] Obra model)
         {
             try
@@ -73,7 +76,26 @@ namespace APIGallery.Controllers
             }
         }
 
+        [HttpPut("Download")]
+        public async Task<IActionResult> Download(int id)
+        {
+            try
+            {
+                var sucesso = await _obraService.IncrementarDownload(id);
 
-
+                if (!sucesso.Item1)
+                    return NotFound("Obra não encontrada.");
+                
+                return Ok(new
+                {
+                    Sucesso = sucesso.Item1,
+                    QuantidadeDownloads = sucesso.Item2
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
