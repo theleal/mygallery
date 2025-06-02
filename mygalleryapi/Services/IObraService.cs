@@ -1,7 +1,0 @@
-﻿namespace APIGallery.Services
-{
-    public interface IObraService
-    {
-       Task<(bool sucesso, int? QtdDownloads)> IncrementarDownload(int id);
-    }
-}

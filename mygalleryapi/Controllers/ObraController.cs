@@ -1,7 +1,6 @@
 using APIGallery.Context;
 using APIGallery.Interfaces;
 using APIGallery.Models;
-using APIGallery.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APIGallery.Controllers

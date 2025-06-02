@@ -17,7 +17,7 @@ namespace APIGallery.Models
         public string Email { get; set; } = string.Empty;
 
         [Required]
-        [Column(TypeName = "varchar(50)")]
+        [Column(TypeName = "varchar(150)")]
         public string SenhaHash { get; set; } = string.Empty;
     }
 }

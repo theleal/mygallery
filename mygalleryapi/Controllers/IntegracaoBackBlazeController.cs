@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using APIGallery.Models.BackBlaze;
 using APIGallery.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace APIGallery.Controllers
 {
@@ -24,8 +25,9 @@ namespace APIGallery.Controllers
             _settings = settings.Value;
         }
 
+        [Authorize]
         [HttpGet("ObterAutorizacao")]
-        public async Task<IActionResult> ObterAutorizacao(int id)
+        public async Task<IActionResult> ObterAutorizacao()
         {
 
             string keyId = _settings.KeyId;
@@ -58,7 +60,7 @@ namespace APIGallery.Controllers
             return Ok( new 
             {
                 authorizationToken = result.AuthorizationToken,
-                urilAPI = result.ApiUrl,
+                apiURL = result.ApiUrl,
             });
         }
 
