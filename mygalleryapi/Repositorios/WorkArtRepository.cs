@@ -5,16 +5,32 @@ using Microsoft.EntityFrameworkCore;
 
 namespace APIGallery.Repositorios
 {
-    public class ObraRepository : IObraRepository
+    public class WorkArtRepository : IWorkArtRepository
     {
         private readonly ContextProject _context;
 
-        public ObraRepository(ContextProject context)
+        public WorkArtRepository(ContextProject context)
         {
             _context = context;
         }
 
-        public async Task<Obra> Atualizar(Obra model)
+        public async Task<WorkArt> Create(WorkArt model)
+        {
+            _context.Add(model);
+            await _context.SaveChangesAsync();
+
+            return model;
+        }
+        public async Task<WorkArt> GetById(int id)
+        {
+            return await _context.WorkArts.FirstOrDefaultAsync(c => c.Id == id);
+        }
+
+        public async Task<List<WorkArt>> GetAll()
+        {
+            return await _context.WorkArts.ToListAsync();
+        }
+        public async Task<WorkArt> Update(WorkArt model)
         {
             _context.Update(model);
             await _context.SaveChangesAsync();
@@ -22,17 +38,9 @@ namespace APIGallery.Repositorios
             return model;
         }
 
-        public async Task<Obra> Criar(Obra model)
-        {
-            _context.Add(model);
-            await _context.SaveChangesAsync();
-
-            return model;
-        }
-
         public async Task<bool> Delete(int id)
         {
-            var model = await _context.Obras.FindAsync(id);
+            var model = await _context.WorkArts.FindAsync(id);
 
             if (model == null)
             {
@@ -44,14 +52,6 @@ namespace APIGallery.Repositorios
             return true;
         }
 
-        public async Task<Obra> ObterPeloId(int id)
-        {
-            return await _context.Obras.FirstOrDefaultAsync(c => c.Id == id);
-        }
-
-        public async Task<List<Obra>> ObterTodos()
-        {
-            return await _context.Obras.ToListAsync();
-        }
+       
     }
 }

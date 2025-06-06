@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace APIGallery.Models
 {
-    public class Obra
+    public class WorkArt
     {
         [Key]
         [Column(TypeName = "integer")]
@@ -11,24 +11,27 @@ namespace APIGallery.Models
 
         [Required]
         [Column(TypeName = "varchar(100)")] 
-        public string Titulo { get; set; } = string.Empty;
+        public string Title { get; set; } = string.Empty;
 
         [Column(TypeName = "varchar(1000)")]
-        public string Descricao { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
 
         [Required]
         [Column(TypeName = "timestamp without time zone")]
-        public DateTime DataUpload { get; set; }
+        public DateTime DateUpload { get; set; }
 
         [Required]
         [Column(TypeName = "varchar(200)")]
         public string URL { get; set; } = string.Empty;
 
         [Column(TypeName = "integer")]
-        public int QuantidadeDownloads { get; set; }
+        public int DownloadNumber { get; set; }
+
+        [Column(TypeName = "varchar(200)")]
+        public string idFileBackBlaze { get; set; } = string.Empty;
 
         [Required]
         [Column(TypeName = "varchar(200)")]
-        public string Tags { get; set; }
+        public string Tags { get; set; } = string.Empty;
     }
 }

@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace APIGallery.Interfaces
 {
-    public interface IUsuarioService
+    public interface IUserService
     {
-        Task<string?> Autenticar(string email, string senha);
+        Task<string?> Aunthenticate(string email, string senha);
     }
 }

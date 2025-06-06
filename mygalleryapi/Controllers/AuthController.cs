@@ -10,27 +10,35 @@ namespace APIGallery.Controllers
     [Route("[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly IUsuarioService _usuarioService;
-        public AuthController(IUsuarioService usuarioService)
+        private readonly IUserService _userService;
+
+        public AuthController(IUserService userService)
         {
 
-            _usuarioService = usuarioService;
+            _userService = userService;
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDTO login)
         {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(login.Email) || string.IsNullOrWhiteSpace(login.Password))
+                    return BadRequest(new { erro = "Usuário e senha são obrigatórios." });
 
-            if (string.IsNullOrWhiteSpace(login.Email) || string.IsNullOrWhiteSpace(login.Senha))
-                return BadRequest(new { erro = "Usuário e senha são obrigatórios." });
+                var tokenObj = _userService.Aunthenticate(login.Email, login.Password);
 
-            var token = _usuarioService.Autenticar(login.Email, login.Senha);
+                if (tokenObj == null)
+                    return Unauthorized(new { erro = "Usuário ou senha incorretos" });
 
-            if (token == null)
-                return Unauthorized(new { erro = "Usuário ou senha incorretos" });
+                string token = tokenObj.Result;
 
-
-            return Ok(new { token });
+                return Ok(new { token = token });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
     }
 }

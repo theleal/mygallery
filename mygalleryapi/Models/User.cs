@@ -3,14 +3,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace APIGallery.Models
 {
-    public class Usuario
+    public class User
     {
         [Key]
         public int Id { get; set; }
 
         [Required]
         [Column(TypeName = "varchar(50)")]
-        public string Nome { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
 
         [Required]
         [Column(TypeName = "varchar(50)")]
@@ -18,6 +18,6 @@ namespace APIGallery.Models
 
         [Required]
         [Column(TypeName = "varchar(150)")]
-        public string SenhaHash { get; set; } = string.Empty;
+        public string PasswordHash { get; set; } = string.Empty;
     }
 }

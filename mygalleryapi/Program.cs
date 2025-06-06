@@ -12,17 +12,18 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Serviços
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHttpClient();
 
-// DB e configurações
+
 builder.Services.AddDbContext<ContextProject>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddTransient<IObraRepository, ObraRepository>();
-builder.Services.AddTransient<IObraService, ObraService>();
-builder.Services.AddTransient<IUsuarioService, UsuarioService>();
-builder.Services.AddTransient<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddTransient<IWorkArtRepository, WorkArtRepository>();
+builder.Services.AddTransient<IWorkArtService, WorkArtService>();
+builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IIntegrationBackBlazeService, IntegrationBackBlazeService > ();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.Configure<BackBlazeSettings>(builder.Configuration.GetSection("BackBlaze"));
 builder.Services.Configure<JWT>(builder.Configuration.GetSection("JwtSettings"));
 var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JWT>();
@@ -57,7 +58,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowLocalhost5500",
         policy =>
         {
-            policy.WithOrigins("http://127.0.0.1:5500")
+            policy.WithOrigins("http://localhost:5173")
                   .AllowAnyHeader()
                   .AllowAnyMethod();
         });
@@ -66,21 +67,17 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// CORS deve vir logo aqui
 app.UseCors("AllowLocalhost5500");
 
-// Swagger
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-// HTTPS e auth
 app.UseHttpsRedirection();
 app.UseAuthorization();
 
-// Controllers
 app.MapControllers();
 
 app.Run();

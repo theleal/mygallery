@@ -6,5 +6,6 @@ namespace APIGallery.Models
     {
         public string AuthorizationToken { get; set; } = string.Empty;
         public string ApiUrl { get; set; } = string.Empty;
+        public string UploadUrl { get; set; } = string.Empty;
     }
 }
