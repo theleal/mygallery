@@ -61,6 +61,7 @@ packages/
 # Editor directories and files
 .idea/
 .vscode/
+.vs/
 *.sublime-project
 *.sublime-workspace
 
