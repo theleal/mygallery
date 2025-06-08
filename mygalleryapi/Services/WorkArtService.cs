@@ -1,6 +1,7 @@
-﻿using APIGallery.Interfaces;
-using APIGallery.Models;
+﻿using APIGallery.Models;
 using APIGallery.Repositorios;
+using APIGallery.Repositorios.Interfaces;
+using APIGallery.Services.Interfaces;
 
 namespace APIGallery.Services
 {
@@ -11,7 +12,7 @@ namespace APIGallery.Services
         {
             _workArtRepository = workArtRepository;   
         }
-        public async Task<(bool sucess, int? numberDownloads)> IncrementarDownload(int id)
+        public async Task<(bool sucess, int? numberDownloads)> IncrementDownload(int id)
         {
            var model = await _workArtRepository.GetById(id);
 

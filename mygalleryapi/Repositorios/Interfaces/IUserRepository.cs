@@ -1,6 +1,6 @@
 ﻿using APIGallery.Models;
 
-namespace APIGallery.Interfaces
+namespace APIGallery.Repositorios.Interfaces
 {
     public interface IUserRepository
     {

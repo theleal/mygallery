@@ -1,7 +1,7 @@
 ﻿using APIGallery.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace APIGallery.Interfaces
+namespace APIGallery.Services.Interfaces
 {
     public interface IUserService
     {

@@ -1,5 +1,4 @@
 using APIGallery.Context;
-using APIGallery.Interfaces;
 using APIGallery.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -12,6 +11,7 @@ using Microsoft.Extensions.Options;
 using APIGallery.Models.BackBlaze;
 using APIGallery.Models;
 using Microsoft.AspNetCore.Authorization;
+using APIGallery.Services.Interfaces;
 
 namespace APIGallery.Controllers
 {
@@ -28,7 +28,7 @@ namespace APIGallery.Controllers
             _serviceBackBlaze = serviceBackBlaze;
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost("UploadFile")]
         public async Task<IActionResult> UploadFile(IFormFile file)
         {
@@ -37,15 +37,13 @@ namespace APIGallery.Controllers
                 var fileMemory = file.OpenReadStream();
 
                 var a = await _serviceBackBlaze.UploadFileAsync(file.FileName, fileMemory, file.ContentType);
-                return Content(a.ToString(), "application/json");
+
+                return Ok(a.Data);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
-
-
-
     }
 }

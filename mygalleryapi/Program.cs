@@ -1,9 +1,10 @@
 using APIGallery.Context;
-using APIGallery.Interfaces;
 using APIGallery.Models;
 using APIGallery.Models.BackBlaze;
 using APIGallery.Repositorios;
+using APIGallery.Repositorios.Interfaces;
 using APIGallery.Services;
+using APIGallery.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +16,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddHttpClient();
 
 
 builder.Services.AddDbContext<ContextProject>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));

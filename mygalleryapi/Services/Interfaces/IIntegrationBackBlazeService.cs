@@ -2,12 +2,12 @@
 using APIGallery.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace APIGallery.Interfaces
+namespace APIGallery.Services.Interfaces
 {
     public interface IIntegrationBackBlazeService
     {
         Task<ResponseDTO<BackBlazeAuthResponse>> GetAuthAsync();
-        Task<ResponseDTO<BackBlazeAuthResponse>> GetUploadUrlAsync();
+        Task<ResponseDTO<BackBlazeGetUrlResponse>> GetUploadUrlAsync();
         Task<ResponseDTO<BackBlazeUploadResponse>> UploadFileAsync(string nomeArquivo, Stream conteudo, string contentType);
     }
 }

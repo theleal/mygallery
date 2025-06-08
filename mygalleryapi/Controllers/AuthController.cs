@@ -1,7 +1,7 @@
 ﻿using Amazon.Runtime.Internal;
 using APIGallery.DTO;
-using APIGallery.Interfaces;
 using APIGallery.Services;
+using APIGallery.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APIGallery.Controllers
@@ -19,7 +19,7 @@ namespace APIGallery.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginDTO login)
+        public async Task<IActionResult> Login([FromBody] UserDTO login)
         {
             try
             {

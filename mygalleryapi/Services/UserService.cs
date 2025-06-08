@@ -1,5 +1,6 @@
-﻿using APIGallery.Interfaces;
-using APIGallery.Models;
+﻿using APIGallery.Models;
+using APIGallery.Repositorios.Interfaces;
+using APIGallery.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APIGallery.Services

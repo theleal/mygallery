@@ -1,6 +1,7 @@
 using APIGallery.Context;
-using APIGallery.Interfaces;
 using APIGallery.Models;
+using APIGallery.Repositorios.Interfaces;
+using APIGallery.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APIGallery.Controllers
@@ -31,8 +32,8 @@ namespace APIGallery.Controllers
             return Ok(model);
         }
 
-        [HttpGet("ObterTodasAsObras")]
-        public async Task<ActionResult<List<WorkArt>>> ObterTudo()
+        [HttpGet("GetAllWorkArt")]
+        public async Task<ActionResult<List<WorkArt>>> GetAll()
         {
             try
             {
@@ -45,7 +46,7 @@ namespace APIGallery.Controllers
             }
         }
 
-        [HttpPost("Criar")]
+        [HttpPost("CreateWorkArt")]
         public async Task<IActionResult> Criar([FromBody, Bind("Tittle,Description,URL,Tags")] WorkArt model)
         {
             try
@@ -60,7 +61,7 @@ namespace APIGallery.Controllers
             }
         }
 
-        [HttpPut("Atualizar")]
+        [HttpPut("UpdateWorkArt")]
         public async Task<IActionResult> Atualizar([FromBody] WorkArt model)
         {
             try
@@ -75,12 +76,12 @@ namespace APIGallery.Controllers
             }
         }
 
-        [HttpPut("Download")]
+        [HttpPut("DownloadWorkArt")]
         public async Task<IActionResult> Download(int id)
         {
             try
             {
-                var sucess = await _workArtService.IncrementarDownload(id);
+                var sucess = await _workArtService.IncrementDownload(id);
 
                 if (!sucess.Item1)
                     return NotFound("WorkArt não encontrada.");

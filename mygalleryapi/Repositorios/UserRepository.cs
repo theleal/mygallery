@@ -1,6 +1,6 @@
 ﻿using APIGallery.Context;
-using APIGallery.Interfaces;
 using APIGallery.Models;
+using APIGallery.Repositorios.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace APIGallery.Repositorios

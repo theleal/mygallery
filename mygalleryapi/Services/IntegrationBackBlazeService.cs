@@ -1,5 +1,4 @@
-﻿using APIGallery.Interfaces;
-using APIGallery.Models;
+﻿using APIGallery.Models;
 using APIGallery.Models.BackBlaze;
 using APIGallery.Repositorios;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +13,7 @@ using System.IO;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Http.HttpResults;
 using APIGallery.DTO;
+using APIGallery.Services.Interfaces;
 
 namespace APIGallery.Services
 {
@@ -70,9 +70,8 @@ namespace APIGallery.Services
                 };
             }
         }
-        public async Task<ResponseDTO<BackBlazeAuthResponse>> GetUploadUrlAsync()
+        public async Task<ResponseDTO<BackBlazeGetUrlResponse>> GetUploadUrlAsync()
         {
-
             var authResponse = await GetAuthAsync();
 
             if (!authResponse.Success || authResponse.Data == null)
@@ -100,9 +99,9 @@ namespace APIGallery.Services
 
             var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
-            BackBlazeAuthResponse result = JsonSerializer.Deserialize<BackBlazeAuthResponse>(json, options);
+            BackBlazeGetUrlResponse result = JsonSerializer.Deserialize<BackBlazeGetUrlResponse>(json, options);
 
-            return new ResponseDTO<BackBlazeAuthResponse>
+            return new ResponseDTO<BackBlazeGetUrlResponse>
             {
                 Success = true,
                 Message = "Get URLUpload sucessful",
@@ -112,7 +111,6 @@ namespace APIGallery.Services
 
         public async Task<ResponseDTO<BackBlazeUploadResponse>> UploadFileAsync(string fileName, Stream content, string contentType)
         {
-
             try
             {
                 var uploadResponse = await GetUploadUrlAsync();
@@ -122,7 +120,7 @@ namespace APIGallery.Services
                     throw new Exception($"Error during get uploadURL: {uploadResponse.Message}");
                 }
 
-                BackBlazeAuthResponse backBlazeConfigs = uploadResponse.Data;
+                BackBlazeGetUrlResponse backBlazeConfigs = uploadResponse.Data;
 
                 string sha1Hash;
                 byte[] fileBytes;

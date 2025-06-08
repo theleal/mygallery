@@ -2,9 +2,9 @@
 
 namespace APIGallery.Models
 {
-    public class BackBlazeAuthResponse
+    public class BackBlazeGetUrlResponse
     {
         public string AuthorizationToken { get; set; } = string.Empty;
-        public string ApiUrl { get; set; } = string.Empty;
+        public string UploadUrl { get; set; } = string.Empty;
     }
 }
