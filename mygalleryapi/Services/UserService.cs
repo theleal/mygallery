@@ -11,9 +11,9 @@ namespace APIGallery.Services
         private readonly IUserRepository _userRepository;
 
 
-        public UserService(IUserRepository repository, TokenService tokenService)
+        public UserService(IUserRepository userRepository, TokenService tokenService)
         {
-            _userRepository = _userRepository;
+            _userRepository = userRepository;
             _tokenService = tokenService;
         }
 

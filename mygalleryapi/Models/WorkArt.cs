@@ -30,6 +30,15 @@ namespace APIGallery.Models
         [Column(TypeName = "varchar(200)")]
         public string idFileBackBlaze { get; set; } = string.Empty;
 
+        [Column(TypeName = "varchar(5)")]
+        public string ISO { get; set; } = string.Empty;
+
+        [Column(TypeName = "varchar(10)")]
+        public string Speed { get; set; } = string.Empty;
+
+        [Column(TypeName = "varchar(10)")]
+        public string Aperture { get; set; } = string.Empty;
+
         [Required]
         [Column(TypeName = "varchar(200)")]
         public string Tags { get; set; } = string.Empty;

@@ -85,7 +85,7 @@ namespace APIGallery.Services
 
             request.Headers.TryAddWithoutValidation("Authorization", auth.AuthorizationToken);
 
-            HttpClient client = new HttpClient();
+            HttpClient client = new();
 
             var response = await client.SendAsync(request);
 

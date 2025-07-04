@@ -12,6 +12,9 @@ using APIGallery.Models.BackBlaze;
 using APIGallery.Models;
 using Microsoft.AspNetCore.Authorization;
 using APIGallery.Services.Interfaces;
+using MetadataExtractor;
+using MetadataExtractor.Formats.Exif;
+using APIGallery.DTO;
 
 namespace APIGallery.Controllers
 {
@@ -30,15 +33,22 @@ namespace APIGallery.Controllers
 
         //[Authorize]
         [HttpPost("UploadFile")]
-        public async Task<IActionResult> UploadFile(IFormFile file)
+        public async Task<IActionResult> UploadFile(List<IFormFile> files)
         {
             try
             {
-                var fileMemory = file.OpenReadStream();
+                List<ResponseDTO<BackBlazeUploadResponse>> lista = new List<ResponseDTO<BackBlazeUploadResponse>>();
 
-                var a = await _serviceBackBlaze.UploadFileAsync(file.FileName, fileMemory, file.ContentType);
+                foreach (var file in files)
+                {
+                    var fileMemory = file.OpenReadStream();
 
-                return Ok(a.Data);
+                    var result = await _serviceBackBlaze.UploadFileAsync(file.FileName, fileMemory, file.ContentType);
+
+                    lista.Add(result);
+                }
+
+                return Ok(lista);
             }
             catch (Exception ex)
             {

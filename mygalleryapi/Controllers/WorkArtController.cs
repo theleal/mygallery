@@ -2,6 +2,7 @@ using APIGallery.Context;
 using APIGallery.Models;
 using APIGallery.Repositorios.Interfaces;
 using APIGallery.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APIGallery.Controllers
@@ -46,6 +47,10 @@ namespace APIGallery.Controllers
             }
         }
 
+
+
+
+        [Authorize]
         [HttpPost("CreateWorkArt")]
         public async Task<IActionResult> Criar([FromBody, Bind("Tittle,Description,URL,Tags")] WorkArt model)
         {
@@ -61,6 +66,8 @@ namespace APIGallery.Controllers
             }
         }
 
+
+        [Authorize]
         [HttpPut("UpdateWorkArt")]
         public async Task<IActionResult> Atualizar([FromBody] WorkArt model)
         {

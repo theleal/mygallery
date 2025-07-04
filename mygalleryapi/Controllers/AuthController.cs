@@ -19,21 +19,21 @@ namespace APIGallery.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] UserDTO login)
+        public async Task<ActionResult<string>> Login([FromBody] UserDTO login)
         {
             try
             {
                 if (string.IsNullOrWhiteSpace(login.Email) || string.IsNullOrWhiteSpace(login.Password))
                     return BadRequest(new { erro = "Usuário e senha são obrigatórios." });
 
-                var tokenObj = _userService.Aunthenticate(login.Email, login.Password);
+                var tokenObj = await _userService.Aunthenticate(login.Email, login.Password);
 
                 if (tokenObj == null)
                     return Unauthorized(new { erro = "Usuário ou senha incorretos" });
 
-                string token = tokenObj.Result;
+                string token = tokenObj;
 
-                return Ok(new { token = token });
+                return Ok(new { Token = token });
             }
             catch (Exception ex)
             {
